@@ -11637,24 +11637,27 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jucae\\.nuget\\packages\\": {}
+    "C:\\Users\\Joao Pedro\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jucae\\source\\repos\\sofialctv\\coLAB\\colabAPI\\colabAPI.csproj",
+      "projectUniqueName": "C:\\Users\\Joao Pedro\\Source\\Repos\\coLAB\\colabAPI\\colabAPI.csproj",
       "projectName": "colabAPI",
-      "projectPath": "C:\\Users\\jucae\\source\\repos\\sofialctv\\coLAB\\colabAPI\\colabAPI.csproj",
-      "packagesPath": "C:\\Users\\jucae\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jucae\\source\\repos\\sofialctv\\coLAB\\colabAPI\\obj\\",
+      "projectPath": "C:\\Users\\Joao Pedro\\Source\\Repos\\coLAB\\colabAPI\\colabAPI.csproj",
+      "packagesPath": "C:\\Users\\Joao Pedro\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Joao Pedro\\Source\\Repos\\coLAB\\colabAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\jucae\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Joao Pedro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -11744,7 +11747,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.405/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
       }
     }
   },

@@ -12,25 +12,12 @@ namespace colabAPI.Data
         }
 
         // Definição das tabelas (DbSet) do banco de dados que serão mapeadas pelo EF
-        public DbSet<Cargo> Cargos { get; set; }
-        public DbSet<HistoricoCargo> HistoricosCargo { get; set; }
-        public DbSet<Pessoa> Pessoas { get; set; }
+        public DbSet<Financiador> Financiadores { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<HistoricoCargo>()
-                .HasOne(h => h.Pessoa)
-                .WithMany(p => p.HistoricosCargo)
-                .HasForeignKey(h => h.PessoaId)
-                .IsRequired();
-            
-            modelBuilder.Entity<HistoricoCargo>()
-                .HasOne(h => h.Cargo)
-                .WithOne(c => c.HistoricoCargo)
-                .HasForeignKey<HistoricoCargo>(c => c.CargoId)
-                .IsRequired();
-            
-            base.OnModelCreating(modelBuilder);
+
         }
         
     }

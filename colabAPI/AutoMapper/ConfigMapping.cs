@@ -9,19 +9,9 @@ public class ConfigMapping : Profile
 {
     public ConfigMapping()
     {
-        CreateMap<Pessoa, PessoaResponseDTO>()
+        CreateMap<Financiador, FinanciadorRequestDTO>()
             .ReverseMap();
-        CreateMap<Pessoa, PessoaRequestDTO>()
-            .ReverseMap();
-        
-        CreateMap<Cargo, CargoResponseDTO>()
-            .ReverseMap();
-        CreateMap<Cargo, CargoRequestDTO>()
-            .ReverseMap();
-        
-        CreateMap<HistoricoCargo, HistoricoCargoResponseDTO>()
-            .ReverseMap();
-        CreateMap<HistoricoCargo, HistoricoCargoRequestDTO>()
+        CreateMap<Financiador, FinanciadorResponseDTO>()
             .ReverseMap();
     }
 }

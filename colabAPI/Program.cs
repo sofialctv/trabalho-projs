@@ -23,12 +23,10 @@ builder.Services.AddControllers().AddJsonOptions(options =>
    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 
 // AutoMapper
-builder.Services.AddAutoMapper(typeof(ConfigMapping));
+//builder.Services.AddAutoMapper(typeof(ConfigMapping));
 
 // Injeção de dependências
-builder.Services.AddScoped<IPessoaRepository, PessoaRepository>();
-builder.Services.AddScoped<ICargoRepository, CargoRepository>();
-builder.Services.AddScoped<IHistoricoCargoRepository, HistoricoCargoRepository>();
+builder.Services.AddScoped<IFinanciadorRepository, FinanciadorRepository>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
