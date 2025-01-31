@@ -1,8 +1,4 @@
-﻿using colab.Business.Models.Entities.Enums;
-using System;
-using System.Collections.Generic;
-
-namespace colab.Business.Models.Entities
+﻿namespace colab.Business.Models.Entities
 {
     public class Projeto
     {
@@ -18,13 +14,7 @@ namespace colab.Business.Models.Entities
         public int FinanciadorId { get; set; }
         public Financiador Financiador { get; set; }
 
-        public int? OrientadorId { get; set; }
-        public Orientador? Orientador { get; set; }
-
-        public ICollection<Bolsista>? Bolsistas { get; set; }
-
-        // Enums
-        public ProjetoCategoria Categoria { get; set; }
-        public ProjetoStatus Status { get; set; }
+        public ICollection<Bolsa>? Bolsas { get; set; }
+        public ICollection<HistoricoProjetoStatus>? HistoricoStatus { get; set; }
     }
 }

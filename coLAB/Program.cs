@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using colab.AutoMapper;
 using colab.Business.Repository.Interfaces;
 using colab.Business.Repository.Implementations;
 using colab.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 // String de conexão com o banco de dados
 var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING")
@@ -18,18 +20,20 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddControllers().AddJsonOptions(options =>
    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 
+// AutoMapper
+builder.Services.AddAutoMapper(typeof(ConfigMapping));
+
 // Injeção de dependências
-builder.Services.AddScoped<IBolsaRepository, BolsaRepository>();
-builder.Services.AddScoped<IBolsistaRepository, BolsistaRepository>();
+builder.Services.AddScoped<IPessoaRepository, PessoaRepository>();
+builder.Services.AddScoped<ICargoRepository, CargoRepository>();
+builder.Services.AddScoped<IHistoricoCargoRepository, HistoricoCargoRepository>();
 builder.Services.AddScoped<IFinanciadorRepository, FinanciadorRepository>();
-builder.Services.AddScoped<IOrientadorRepository, OrientadorRepository>();
 builder.Services.AddScoped<IProjetoRepository, ProjetoRepository>();
+builder.Services.AddScoped<IBolsaRepository, BolsaRepository>();
+builder.Services.AddScoped<ITipoBolsaRepository, TipoBolsaRepository>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-// Registro dos Repositories
-builder.Services.AddScoped<IProjetoRepository, ProjetoRepository>();
 
 // Adicionar serviços ao contêiner
 builder.Services.AddCors(options =>

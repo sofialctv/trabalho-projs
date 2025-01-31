@@ -1,8 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using colab.Business.Models.Entities;
 using colab.Business.Repository.Interfaces;
 using colab.Data;
-using colab.Business.DTOs;
-using colab.Business.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace colab.Business.Repository.Implementations
 {
@@ -15,53 +14,37 @@ namespace colab.Business.Repository.Implementations
         {
             _DbContext = context;
         }
-
-        public async Task<IEnumerable<BolsaDTO>> GetAllAsync()
+        
+        public async Task<IEnumerable<Bolsa>> GetAllAsync()
         {
-            return _DbContext.Bolsas
-                .Include(b => b.Pesquisador) // Inclui o relacionamento Pesquisador
-                .Select(b => new BolsaDTO // Converte as entidades para DTOs
-                {
-                    Id = b.Id,
-                    Valor = b.Valor,
-                    DataInicio = b.DataInicio,
-                    DataFim = b.DataFim,
-                    DataPrevistaFim = b.DataPrevistaFim,
-                    Ativo = b.Ativo,
-                    Categoria = b.Categoria,
-                    PesquisadorId = b.PesquisadorId,
-                }).ToList();
+            return await _DbContext.Bolsas
+                .Include(b => b.Pessoa) // Inclui o relacionamento Pesquisador
+                .Include(b => b.TipoBolsa) // Inclui o relacionamento tipoBolsa
+                .ToListAsync(); // Retorna as entidades diretamente como uma lista
         }
-
+        
         // Retorna uma bolsa específica como BolsaDTO pelo ID
-        public async Task<BolsaDTO> GetByIdAsync(int id)
+        public async Task<Bolsa> GetByIdAsync(int id)
         {
-            var bolsa = _DbContext.Bolsas
-                .Include(b => b.Pesquisador) // Inclui o relacionamento Pesquisador
-                .FirstOrDefault(b => b.Id == id); // Busca pelo ID
+            var bolsa = await _DbContext.Bolsas
+                .Include(b => b.Pessoa) // Inclui o relacionamento Pesquisador
+                .Include(b => b.TipoBolsa) // Inclui o relacionamento tipoBolsa
+                .FirstOrDefaultAsync(b => b.Id == id);
 
-            if (bolsa == null) return null;
-
-            // Converte a entidade para um DTO e retorna
-            return new BolsaDTO
+            if (bolsa == null)
             {
-                Id = bolsa.Id,
-                Valor = bolsa.Valor,
-                DataInicio = bolsa.DataInicio,
-                DataFim = bolsa.DataFim,
-                DataPrevistaFim = bolsa.DataPrevistaFim,
-                Ativo = bolsa.Ativo,
-                Categoria = bolsa.Categoria,
-                PesquisadorId = bolsa.PesquisadorId,
-            };
-        }
+                throw new KeyNotFoundException($"Bolsa com ID {id} não foi encontrada.");
+            }
 
+            return bolsa;
+        }
+        
         // Adiciona uma nova bolsa ao banco de dados
         public async Task AddAsync(Bolsa bolsa)
         {
             _DbContext.Bolsas.Add(bolsa);
         }
-
+        
         // Atualiza os dados de uma bolsa existente
         public async Task UpdateAsync(Bolsa bolsa)
         {
@@ -70,9 +53,9 @@ namespace colab.Business.Repository.Implementations
                 throw new ArgumentException("Dados de bolsa invalido");
             }
 
-
+            
             var existeBolsa = _DbContext.Bolsas.Find(bolsa.Id); // Verifica se a bolsa existe
-            if (existeBolsa != null)
+            if (existeBolsa != null) 
             {
                 // Atualiza os valores da bolsa existente
                 _DbContext.Entry(existeBolsa).CurrentValues.SetValues(bolsa);
@@ -81,10 +64,10 @@ namespace colab.Business.Repository.Implementations
             {
                 throw new KeyNotFoundException("Bolsa não encontrada"); // Erro se não encontrada
             }
-
+            
             _DbContext.SaveChanges();
         }
-
+        
         public async Task DeleteAsync(int bolsaID)
         {
             var bolsa = _DbContext.Bolsas.Find(bolsaID); // Busca a bolsa pelo ID
@@ -93,13 +76,13 @@ namespace colab.Business.Repository.Implementations
                 _DbContext.Bolsas.Remove(bolsa); // Remove a bolsa  
             }
         }
-
+        
         // Salva as mudanças no banco de dados
         public async Task Save()
         {
             _DbContext.SaveChanges();
         }
-
+        
         private bool _disposed = false; // Flag para rastrear se os recursos já foram liberados.
 
         // Método protegido para liberar recursos.
